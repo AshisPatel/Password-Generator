@@ -57,18 +57,17 @@ while (lengthCheck) {
 // pick a random character from that array to add to the password
 // loop until length of password is equal to the desired user input
 
+var password = ""; 
+// Establish variable to countdown the amount of characters are still needed to add to the password
+var passwordLengthCheck = passwordLength; 
 
+// Create a check to verify that the created password meets the user-specified criteria 
+var lowerCheck = false;
+var upperCheck = false;
+var numberCheck = false;
+var specialCheck = false; 
 
 var generatePassword = function() {
-  var password = ""; 
-  // Establish variable to countdown the amount of characters are still needed to add to the password
-  var passwordLengthCheck = passwordLength; 
-
-  // Create a check to verify that the created password meets the user-specified criteria 
-  var lowerCheck = false;
-  var upperCheck = false;
-  var numberCheck = false;
-  var specialCheck = false; 
   while ( passwordLengthCheck > 0) {
     var roll= Math.floor(Math.random()*4) + 1; 
 
