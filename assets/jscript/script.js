@@ -51,24 +51,28 @@ while (lengthCheck) {
 
 }
 
-
-
 // roll a 4-sided die, each side relating to the type of criteria 1 -> Lower, 2 -> Upper , 3 -> Number 4 -> Special if the criteria is selected & true, 
 // pick a random character from that array to add to the password
 // loop until length of password is equal to the desired user input
+var password = ""; 
+// Establish variable to countdown the amount of characters are still needed to add to the password
+var passwordLengthCheck = passwordLength; 
 
-
+// Create a check to verify that the created password meets the user-specified criteria 
+var lowerCheck = false;
+var upperCheck = false;
+var numberCheck = false;
+var specialCheck = false; 
 
 var generatePassword = function() {
-  var password = ""; 
-  // Establish variable to countdown the amount of characters are still needed to add to the password
-  var passwordLengthCheck = passwordLength; 
+  //reset all variables for generatePassword function 
+  password = ""; 
+  passwordLengthCheck = passwordLength;  
+  lowerCheck = false;
+  upperCheck = false;
+  numberCheck = false;
+  specialCheck = false; 
 
-  // Create a check to verify that the created password meets the user-specified criteria 
-  var lowerCheck = false;
-  var upperCheck = false;
-  var numberCheck = false;
-  var specialCheck = false; 
   while ( passwordLengthCheck > 0) {
     var roll= Math.floor(Math.random()*4) + 1; 
 
@@ -106,12 +110,13 @@ var generatePassword = function() {
 // Determine the number of criteria numerically, and then add up the check to verify that
 // all of the criteria has been met
 
-
+var check = false; 
 
 var testPassword = function(check) {
+  generatePassword();
   var numCriteria = 0; 
   var validateCriteria = 0; 
-  generatePassword();
+  
   if (lowerConfirm) {
     numCriteria++; 
   }
@@ -143,6 +148,8 @@ var testPassword = function(check) {
   if (specialConfirm && specialCheck) {
     validateCriteria++; 
   }
+  console.log(specialCheck); 
+  console.log(validateCriteria + " " + numCriteria); 
 
   if (validateCriteria === numCriteria) {
     window.alert("This password meets the criteria!\n" + password);
@@ -158,9 +165,12 @@ var testPassword = function(check) {
 }
 
 test = true;
-
-for(i=0;i<5;i++) {
-  testPassword(); 
+while (test) {
+  var breakLoop = testPassword(); 
+  if (breakLoop)
+  {
+    break; 
+  }
 }
 
 
