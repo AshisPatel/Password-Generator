@@ -3,54 +3,10 @@
 // Arrays that hold the characters that can make up the password
  
 
-numbers = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']; 
-special = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'x', 'z']; 
-
-// Confirm which characters the user would like in their password
-
-var characterCheck = true; 
-while (characterCheck) {
-  var lowerConfirm = window.confirm("Would you like to include lowercase letters in your password?");
-  var upperConfirm = window.confirm("Would you like to include uppercase letters in your password?");
-  var numberConfirm = window.confirm("Would you like to include numbers in your password?");
-  var specialConfirm = window.confirm("Would you like to include special characters in your password?"); 
-
-  // Verify that the user selects at least one type of character , else loop back to prompts
-  if( lowerConfirm || upperConfirm || numberConfirm || specialConfirm ) {
-    break; 
-  }
-
-  else {
-    window.alert("You must have atleast one type of character in your password!"); 
-  }
-}
-
-// Prompt user for password length, must be between 8 and 128 characters 
-
-var lengthCheck = true; //Will this while loop structure work? , replace with general variable for all checks called "check?"
-
-while (lengthCheck) {
-  var passwordLength = window.prompt("How long would you like your password to be?")
-  passwordLength = parseInt(passwordLength); 
-  // Check to see if user input is a valid integer 
-
-  if (!Number.isInteger(passwordLength)){
-    window.alert("Please enter a whole number between 8 and 128 for the length of the password.");
-  }
-
-  // Make sure user input is within the appropriate bounds 
-
-  else if(passwordLength < 8 || passwordLength > 128) {
-    window.alert("Please enter a whole number between 8 and 128 for the length of the password.");
-  }
-
-  else {
-    break; 
-  }
-
-}
-
+var numbers = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']; 
+var special = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
+var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'x', 'z']; 
+var passwordLength = 0; 
 // roll a 4-sided die, each side relating to the type of criteria 1 -> Lower, 2 -> Upper , 3 -> Number 4 -> Special if the criteria is selected & true, 
 // pick a random character from that array to add to the password
 // loop until length of password is equal to the desired user input
@@ -63,6 +19,52 @@ var lowerCheck = false;
 var upperCheck = false;
 var numberCheck = false;
 var specialCheck = false; 
+
+
+// Confirm which characters the user would like in their password
+var promptCheck = function() {
+  var characterCheck = true; 
+  while (characterCheck) {
+    var lowerConfirm = window.confirm("Would you like to include lowercase letters in your password?");
+    var upperConfirm = window.confirm("Would you like to include uppercase letters in your password?");
+    var numberConfirm = window.confirm("Would you like to include numbers in your password?");
+    var specialConfirm = window.confirm("Would you like to include special characters in your password?"); 
+
+    // Verify that the user selects at least one type of character , else loop back to prompts
+    if( lowerConfirm || upperConfirm || numberConfirm || specialConfirm ) {
+      break; 
+    }
+
+    else {
+      window.alert("You must have atleast one type of character in your password!"); 
+    }
+  }
+
+  // Prompt user for password length, must be between 8 and 128 characters 
+
+  var lengthCheck = true; //Will this while loop structure work? , replace with general variable for all checks called "check?"
+
+  while (lengthCheck) {
+    var passwordLength = window.prompt("How long would you like your password to be?")
+    passwordLength = parseInt(passwordLength); 
+    // Check to see if user input is a valid integer 
+
+    if (!Number.isInteger(passwordLength)){
+      window.alert("Please enter a whole number between 8 and 128 for the length of the password.");
+    }
+
+    // Make sure user input is within the appropriate bounds 
+
+    else if(passwordLength < 8 || passwordLength > 128) {
+      window.alert("Please enter a whole number between 8 and 128 for the length of the password.");
+    }
+
+    else {
+      break; 
+    }
+
+  }
+}
 
 var generatePassword = function() {
   //reset all variables for generatePassword function 
@@ -164,14 +166,19 @@ var testPassword = function(check) {
   }
 }
 
-test = true;
-while (test) {
-  var breakLoop = testPassword(); 
-  if (breakLoop)
-  {
-    break; 
-  }
+var createPassword = function() {
+  promptCheck();
+  testPassword();
 }
+
+// test = true;
+// while (test) {
+//   var breakLoop = testPassword(); 
+//   if (breakLoop)
+//   {
+//     break; 
+//   }
+// }
 
 
 // Get references to the #generate element
@@ -179,7 +186,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var password = createPassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
