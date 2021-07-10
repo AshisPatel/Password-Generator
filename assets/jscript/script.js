@@ -1,13 +1,5 @@
 // Assignment code here
 
-// Arrays that hold the characters that can make up the password
-var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-var special = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
-var lowerCaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'x', 'z'];
-var upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-// Define extra variables used in functions 
-var passwordLength = 0;
-
 // Create function to prompt user for the type of characters they would like to use
 var userPrompts = function () {
   // Prompt user for criteria 
@@ -19,8 +11,8 @@ var userPrompts = function () {
     var specialConfirm = window.confirm("Would you like to include special characters in your password?");
 
     // Verify that the user selects at least one type of character , else loop back to prompts
-    if ( lowerConfirm || upperConfirm || numberConfirm || specialConfirm ) {
-      break; 
+    if (lowerConfirm || upperConfirm || numberConfirm || specialConfirm) {
+      break;
     }
 
     else {
@@ -29,9 +21,9 @@ var userPrompts = function () {
   }
   // Prompt user for password length, must be between 8 and 128 characters 
 
-  var lengthCheck = true; 
+  var lengthCheck = true;
   while (lengthCheck) {
-    var passwordLength = window.prompt("How long would you like your password to be?")
+    var passwordLength = window.prompt("How long would you like your password to be?");
     passwordLength = parseInt(passwordLength);
     // Check to see if user input is a valid integer 
     if (!Number.isInteger(passwordLength)) {
@@ -73,21 +65,27 @@ function shuffle(array) {
   var randomSelect = 0; // Will select one random character in the array in the back portion of the array 
 
   // While loop iterates the number of times equal to the number of characters in the password array 
-  while (arrayLength > 0) { 
-    randomSelect = Math.floor(Math.random()*arrayLength); // Select a random character from the portion of the array that does not have a previously swapped character
+  while (arrayLength > 0) {
+    randomSelect = Math.floor(Math.random() * arrayLength); // Select a random character from the portion of the array that does not have a previously swapped character
     arrayLength--; // Counts down number of swaps 
     [array[arrayLength], array[randomSelect]] = [array[randomSelect], array[arrayLength]]; // The random character is swapped with the character at the index of the current swap remaining counter
     // In other words, swap will place the new swapped character right before the previously swapped character 
   }
-  return array; 
+  return array;
 }
 
 
 var generatePassword = function () {
-  
+
+  // Arrays that hold the characters that can make up the password
+  var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  var special = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')','<','>','?','-','+','~','`',';',':','{','{','[',']'];
+  var lowerCaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'y', 'x', 'z'];
+  var upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
   var answers = userPrompts(); // Grab the criteria required and the length of password from userPrompts function 
   var password = []; // Initialize blank array to hold the final generated password 
-  var characters = []; // Initialize blank array to hold all potential passwords
+  var characters = []; // Initialize blank array to hold all potential characters based on user selected criteria 
   var needed = []; // Initialize blank array to hold the at least one character of each needed criteria 
 
   // Conditionals will check to which character types are allowed in the password and get added to the 'characters' array
@@ -122,15 +120,12 @@ var generatePassword = function () {
   }
   // Shuffle password array a few times to ensure randomness amongst required characters 
   for (i = 0; i < 2; i++) {
-    shuffle(password); 
+    shuffle(password);
   }
-  
+
   // Return the password array after converting it as a string 
   return password.join("");
 }
-
-
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
