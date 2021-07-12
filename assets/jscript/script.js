@@ -66,11 +66,14 @@ function shuffle(array) {
 
   // While loop iterates the number of times equal to the number of characters in the password array 
   while (arrayLength > 0) {
-    randomSelect = Math.floor(Math.random() * arrayLength); // Select a random character from the portion of the array that does not have a previously swapped character
-    arrayLength--; // Counts down number of swaps 
-    [array[arrayLength], array[randomSelect]] = [array[randomSelect], array[arrayLength]]; // The random character is swapped with the character at the index of the current swap remaining counter
-    // In other words, swap will place the new swapped character right before the previously swapped character 
+    // Select a random character from the portion of the array that does not have a previously swapped character
+    randomSelect = Math.floor(Math.random() * arrayLength); 
+    // Counts down number of swaps 
+    arrayLength--; 
+    // Utilizing array destructuring, it is possible to swap the last-element in the unswapped portion of the array with the randomly selected element from the unswapped portion of the array.  
+    [array[arrayLength], array[randomSelect]] = [array[randomSelect], array[arrayLength]]; 
   }
+  // Return the array that has been shuffled 
   return array;
 }
 
