@@ -1,4 +1,4 @@
-# Password Generator - Week 3 Challenge
+# Password Generator
 
 ## Purpose
 
@@ -12,7 +12,7 @@ The password generator can be used to generate a random password between 8-128 c
 * Jscript
 
 ## Website
-https://ashispatel.github.io/Password-Generator-Week-3-Challenge/
+https://ashispatel.github.io/Password-Generator/
 
 ## End Note - A Thank You to the Reader 
 
